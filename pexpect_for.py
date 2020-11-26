@@ -2,40 +2,27 @@
 #-*- encoding utf-8 -*-
 import pexpect
 
-# Set the connection
+# Simple pexpect example to execute multiple commands in python 3
+# If you want to make it interact then import sys module and use sys.argv to get from CLI
+# An issue that i don't know how to solve is the logging funciton is on binary and the strings starts with b'[string]
 
 def main():
 
 	# commands to test: [ ls -alh  pwd  uname -a ]
 
-	a = ['uname -a', 'pwd', 'ls -alh']
-	pexpect.sys.stdout = open('/tmp/logOutput', 'a+') #this is for log the stdout from the executed commands
+	a = ['uname -a', 'pwd', 'ls -alh'] # Add here your command list
+	pexpect.sys.stdout = open('/tmp/logOutput', 'a+') #this is to log the stdout from the executed commands
 	
-	c = pexpect.spawn('ssh tenex@127.0.0.1', timeout=None)#, logfile=pexpect.sys.stdout)
+	c = pexpect.spawn('ssh user@127.0.0.1', timeout=None) # This is to connect to the server, if you want to insert it then add sys.argv[x]
 	c.expect ('password:')
-	c.sendline('hackmaster')
-	#time.sleep(1)
-	#c.logfile = pexpect.sys.stdout
+	c.sendline('MyPassword')
+	#c.logfile = pexpect.sys.stdout # This is a shit, is not working don't use it
 	for cmd in a:
-		#pexpect.run(cmd)
-		#c.logfile = pexpect.sys.stdout
-		#pexpect.spawnu(cmd, timeout=1)
 		o = pexpect.run(cmd, timeout=None)
 		print(o)
-		#print(o)
-		#print(f"reading:\n{c.readline()}")
-		#print(c.before, c.after)
-		#c.expect(pexpect.EOF)
-		c.expect(["$"])#, pexpect.EOF, pexpect.TIMEOUT])
-		
-		#print(c.before, c.after)
-			
+		c.expect(["$"])
+		#print(c.before, c.after) # this is not necessary that's why is commented
 
 	c.close()
-	#c.sendline("exit")
-	#c.close(force=True)
-	#c.logfile.close()
-	#print("check the log")
-
 if __name__ == '__main__':
 	main()
