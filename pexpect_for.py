@@ -16,7 +16,7 @@ def main():
 	c = pexpect.spawn('ssh user@127.0.0.1', timeout=None) # This is to connect to the server, if you want to insert it then add sys.argv[x]
 	c.expect ('password:')
 	c.sendline('MyPassword')
-	#c.logfile = pexpect.sys.stdout # This is a shit, is not working don't use it
+	#c.logfile = pexpect.sys.stdout # This is useless, is not working don't use it
 	for cmd in a:
 		o = pexpect.run(cmd, timeout=None)
 		print(o)
