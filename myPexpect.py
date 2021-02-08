@@ -10,17 +10,17 @@ def main():
 
 	#pexpect.sys.stdout = open(hn, "a+")
 
-	c = pexpect.spawn('ssh tenex@127.0.0.1', encoding='utf-8', timeout=5, logfile=pexpect.sys.stdout)
+	c = pexpect.spawn('ssh user@127.0.0.1', encoding='utf-8', timeout=5, logfile=pexpect.sys.stdout)
 	#print(f"valor de c: {c}\ntipo de c:{type(c)}")
 	index = c.expect(["connecting", "password", "$", pexpect.EOF, pexpect.TIMEOUT])
 	if index == 0:
 		c.sendline('yes')
 		c.expect("password")
-		c.sendline('hackmaster')
+		c.sendline('MyPassword')
 		loops(c)
 
 	elif index == 1:
-		c.sendline('hackmaster')
+		c.sendline('MyPassword')
 		c.expect(["$","#"])
 		loops(c)
 
