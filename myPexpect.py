@@ -1,6 +1,15 @@
 #!/usr/bin/env python3.9
 #-*- encode: utf-8 -*-
 
+# This can be user into a virtual environmnet using as follows:
+# $ virtualenv [Environment_Name]
+# $ source [Environmnet_name]/bin/activate
+# $ pip3 install [package]
+
+# this script requires pexpect package and python 3.x
+# Also if this will be used with std input for user, host and passwd, you can use sys module or pexpect.sys, btw I didn't tried with this last option
+# a new cycle can be implemented in case that you want to use this agains a list of servers
+
 import pexpect
 
 def main():
@@ -38,7 +47,7 @@ def main():
 
 def loops(fn):
 
-	comands = ['ls -alh', 'pwd', 'uname -a']
+	comands = ['ls -alh', 'pwd', 'uname -a'] #Add here the commands to be executed 
 	#fn.expect(["$", "#"])
 	hn = "/tmp/" + "logfile" + ".txt"
 	pexpect.sys.stdout = open(hn, "a+")
